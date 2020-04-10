@@ -106,6 +106,18 @@ public class SignalGenerator {
         }
     }
 
+    //11. Szum impulsowy
+    public double NoiseImpulse (double time) {
+        double random = rand.nextDouble();
+
+        if (Prob > random) {
+            return Amplitude;
+        }
+        else {
+            return 0;
+        }
+    }
+
     public double getAmplitude() {
         return Amplitude;
     }
