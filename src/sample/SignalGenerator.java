@@ -1,5 +1,6 @@
 package sample;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class SignalGenerator {
@@ -10,6 +11,7 @@ public class SignalGenerator {
     public double TimeJump;
     public double Prob;
     public double Frequency;
+    public double Rate;
 
     public Random rand = new Random();
 
@@ -42,6 +44,18 @@ public class SignalGenerator {
     //5. Sygnał sinusodialny wyprostowany dwupołówkowo
     public double FullStraightSinusoidalSignal (double time) {
         return Amplitude * Math.abs(Math.sin((2 * Math.PI / Period) * (time - TimeStart)));
+    }
+
+    //6. Sygnał prostokątny
+    public double RectangularSignal (double time) {
+        int k = (int)((time - TimeStart) / Period );
+
+        if (time >= (k * Period + TimeStart) && time < (Rate * Period + k * Period + TimeStart)) { //FIXME tutaj może być błąd z podawanymi wartościami
+            return Amplitude;
+        }
+        else {
+            return 0;
+        }
     }
 
     public double getAmplitude() {
