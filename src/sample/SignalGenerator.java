@@ -70,6 +70,19 @@ public class SignalGenerator {
         }
     }
 
+    //8. Sygnał trójkątny
+    public double TriangularSignal (double time) {
+        int k = (int)((time - TimeStart) / Period );
+
+        if (time >= (k * Period + TimeStart) && time < (Rate * Period + k * Period + TimeStart)) { //FIXME tutaj też może być błąd
+            return ((Amplitude / (Rate * Period)) * (time - k * Period - TimeStart));
+        }
+        else {
+            return ((-Amplitude / (Period * (1 - Rate))) * (time - k * Period - TimeStart)) + (Amplitude / (1 - Rate));
+        }
+
+    }
+
     public double getAmplitude() {
         return Amplitude;
     }
