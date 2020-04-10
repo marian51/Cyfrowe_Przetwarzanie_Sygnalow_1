@@ -39,7 +39,10 @@ public class SignalGenerator {
         return 0.5 * Amplitude * ( Math.sin((2 * Math.PI / Period) * (time - TimeStart)) + Math.abs(Math.sin((2 * Math.PI / Period) * (time - TimeStart))));
     }
 
-
+    //5. Sygnał sinusodialny wyprostowany dwupołówkowo
+    public double FullStraightSinusoidalSignal (double time) {
+        return Amplitude * Math.abs(Math.sin((2 * Math.PI / Period) * (time - TimeStart)));
+    }
 
     public double getAmplitude() {
         return Amplitude;
