@@ -83,6 +83,19 @@ public class SignalGenerator {
 
     }
 
+    //9. Sygnał jednostkowy
+    public double UnitarySignal (Double time) {
+        if (time > TimeStart) {
+            return Amplitude;
+        }
+        else if (time.equals(TimeStart)) {
+            return 0.5;
+        }
+        else {
+            return 0;
+        }
+    }
+
     public double getAmplitude() {
         return Amplitude;
     }
