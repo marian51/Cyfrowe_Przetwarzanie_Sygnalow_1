@@ -96,6 +96,16 @@ public class SignalGenerator {
         }
     }
 
+    //10. Impuls jednostkowy
+    public double UnitaryImpulse (double time) {
+        if (time == TimeStart){
+            return 1; //FIXME tu może być A
+        }
+        else {
+            return 0;
+        }
+    }
+
     public double getAmplitude() {
         return Amplitude;
     }
