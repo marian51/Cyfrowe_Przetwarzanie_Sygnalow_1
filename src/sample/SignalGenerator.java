@@ -15,6 +15,12 @@ public class SignalGenerator {
 
     public Random rand = new Random();
 
+    public int selected;
+
+    public SignalGenerator(int s) {
+        selected = s;
+    }
+
     //1. Szum o rozkładzie jednostkowym
     public double UnitaryDistributionNoise (double time) {
         return rand.nextDouble() * 2 * Amplitude - Amplitude; //Trzeba odwzorować zakres 0-1 na zakres A - -A
@@ -118,6 +124,46 @@ public class SignalGenerator {
         }
     }
 
+    public double generate(double t) {
+        switch (selected) {
+            case 0:
+                return UnitaryDistributionNoise(t);
+
+            case 1:
+                return GaussianNoise(t);
+
+            case 2:
+                return SinusoidalSignal(t);
+
+            case 3:
+                return HalfStraightSinusoidalSignal(t);
+
+            case 4:
+                return FullStraightSinusoidalSignal(t);
+
+            case 5:
+                return RectangularSignal(t);
+
+            case 6:
+                return SymmetricalRectangularSignal(t);
+
+            case 7:
+                return TriangularSignal(t);
+
+            case 8:
+                return UnitarySignal(t);
+
+            case 9:
+                return UnitaryImpulse(t);
+
+            case 10:
+                return NoiseImpulse(t);
+
+            default:
+                return 0;
+        }
+    }
+
     public double getAmplitude() {
         return Amplitude;
     }
@@ -173,4 +219,11 @@ public class SignalGenerator {
     public void setFrequency(double frequency) {
         Frequency = frequency;
     }
+
+    public String toString () {
+        return "Amplituda: " + Amplitude + "\n" + "Czas początkowy: " + TimeStart + "\n" + "Czas trwania: " +
+                Time + "\n" + "Okres: " + Period + "\n" + "Czas skoku: " + TimeJump + "\n" + "Prawdopodobieństwo: " + Prob + "\n" + "Częstotliwość: " + Frequency;
+    }
+
+
 }
