@@ -58,6 +58,18 @@ public class SignalGenerator {
         }
     }
 
+    //7. Sygnał prostokątny symetryczny
+    public double SymmetricalRectangularSignal (double time) {
+        int k = (int)((time - TimeStart) / Period );
+
+        if (time >= (k * Period + TimeStart) && time < (Rate * Period + k * Period + TimeStart)) { //FIXME tutaj też może być błąd
+            return Amplitude;
+        }
+        else {
+            return -Amplitude;
+        }
+    }
+
     public double getAmplitude() {
         return Amplitude;
     }
