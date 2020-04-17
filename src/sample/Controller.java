@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
@@ -90,6 +91,9 @@ public class Controller implements Initializable {
 
         DataChart dataChart = new DataChart();
         dataChart.loadData(signal, generator.selected);
+
+        HistChart histChart = new HistChart();
+        histChart.loadData(signal);
     }
 
 
