@@ -83,7 +83,7 @@ public class Controller implements Initializable {
         //System.out.println("generator.TimeStart = " + generator.TimeStart);
         //System.out.println("generator.TimeStart+4 = " + generator.TimeStart+4);
         //System.out.println("1/samplingFreq = " + 1/samplingFreq);
-        for (Double i = generator.TimeStart; i < generator.TimeStart + 4.0; i += 1/samplingFreq) {
+        for (Double i = generator.TimeStart; i <= generator.TimeStart + generator.Time; i += 1/generator.Frequency) {
             //System.out.println("====>" + i);
             signal.X.add(i);
             signal.Y.add(generator.generate(i));
@@ -92,6 +92,9 @@ public class Controller implements Initializable {
         for (int i=0; i<signal.X.size(); i++) {
             System.out.println(signal.X.get(i) + " " + signal.Y.get(i));
         }
+
+        Chart chart = new Chart();
+        chart.loadData(signal);
     }
 
 
