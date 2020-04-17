@@ -4,18 +4,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-import javax.net.ssl.SSLContext;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Function;
 
 public class Controller implements Initializable {
 
@@ -93,8 +87,9 @@ public class Controller implements Initializable {
             System.out.println(signal.X.get(i) + " " + signal.Y.get(i));
         }
 
-        Chart chart = new Chart();
-        chart.loadData(signal);
+
+        DataChart dataChart = new DataChart();
+        dataChart.loadData(signal, generator.selected);
     }
 
 
