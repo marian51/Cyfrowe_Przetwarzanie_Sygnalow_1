@@ -3,7 +3,7 @@
 <?import javafx.scene.chart.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Chart">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.DataChart">
    <children>
       <LineChart fx:id="lineChart" createSymbols="false" layoutX="14.0" layoutY="14.0" prefHeight="414.0" prefWidth="600.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <xAxis>
@@ -13,5 +13,13 @@
           <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
       </LineChart>
+      <ScatterChart fx:id="scatterChart" layoutX="56.0" prefHeight="400.0" prefWidth="600.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" />
+        </yAxis>
+      </ScatterChart>
    </children>
 </AnchorPane>
