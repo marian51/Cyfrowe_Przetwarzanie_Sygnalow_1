@@ -55,6 +55,8 @@ public class SignalGenerator {
     //6. Sygnał prostokątny
     public double RectangularSignal (double time) {
         int k = (int)((time - TimeStart) / Period );
+        //k = (int)((time / Period) - (TimeStart / Period));
+        //k = (int)(1/Frequency);
 
         if (time >= (k * Period + TimeStart) && time < (Rate * Period + k * Period + TimeStart)) { //FIXME tutaj może być błąd z podawanymi wartościami
             return Amplitude;
@@ -91,10 +93,11 @@ public class SignalGenerator {
 
     //9. Sygnał jednostkowy
     public double UnitarySignal (Double time) {
-        if (time > TimeStart) {
+        if (time > TimeJump) {
+            System.out.println("==== Wartość " + time + " jest większa od " + TimeJump);
             return Amplitude;
         }
-        else if (time.equals(TimeStart)) {
+        else if (time.equals(TimeJump)) {
             return 0.5;
         }
         else {
@@ -104,7 +107,7 @@ public class SignalGenerator {
 
     //10. Impuls jednostkowy
     public double UnitaryImpulse (double time) {
-        if (time == TimeStart){
+        if (time == TimeJump){
             return 1; //FIXME tu może być A
         }
         else {
@@ -162,62 +165,6 @@ public class SignalGenerator {
             default:
                 return 0;
         }
-    }
-
-    public double getAmplitude() {
-        return Amplitude;
-    }
-
-    public double getTimeStart() {
-        return TimeStart;
-    }
-
-    public double getTime() {
-        return Time;
-    }
-
-    public double getPeriod() {
-        return Period;
-    }
-
-    public double getTimeJump() {
-        return TimeJump;
-    }
-
-    public double getProb() {
-        return Prob;
-    }
-
-    public double getFrequency() {
-        return Frequency;
-    }
-
-    public void setAmplitude(double amplitude) {
-        Amplitude = amplitude;
-    }
-
-    public void setTimeStart(double timeStart) {
-        TimeStart = timeStart;
-    }
-
-    public void setTime(double time) {
-        Time = time;
-    }
-
-    public void setPeriod(double period) {
-        Period = period;
-    }
-
-    public void setTimeJump(double timeJump) {
-        TimeJump = timeJump;
-    }
-
-    public void setProb(double prob) {
-        Prob = prob;
-    }
-
-    public void setFrequency(double frequency) {
-        Frequency = frequency;
     }
 
     public String toString () {
