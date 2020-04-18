@@ -70,10 +70,41 @@ public class Operations {
 
     public static List<Double> AdditionSignals(List<Double> first, List<Double> second) {
         List<Double> result = new ArrayList<>();
-        for (int i=0; i<Math.max(first.size(),second.size()); i++) {
+        for (int i=0; i<first.size(); i++) {
             result.add(first.get(i)+second.get(i));
         }
 
+        return result;
+    }
+
+    public static List<Double> SubstractionSignals(List<Double> first, List<Double> second) {
+        List<Double> result = new ArrayList<>();
+        for (int i=0; i<first.size(); i++) {
+            result.add(first.get(i)-second.get(i));
+        }
+
+        return result;
+    }
+
+    public static List<Double> MultiplicationSignals(List<Double> first, List<Double> second) {
+        List<Double> result = new ArrayList<>();
+        for (int i=0; i<first.size(); i++) {
+            result.add(first.get(i)*second.get(i));
+        }
+
+        return result;
+    }
+
+    public static List<Double> DivisionSignals(List<Double> first, List<Double> second) {
+        List<Double> result = new ArrayList<>();
+        for (int i=0; i<first.size(); i++) {
+            if(second.get(i)!=0) {
+                result.add(first.get(i)/second.get(i));
+            }
+            else {
+                result.add(Math.max(first.get(i),second.get(i)));    //FIXME problem dzielenia przez 0
+            }
+        }
         return result;
     }
 
@@ -83,6 +114,15 @@ public class Operations {
         switch (choice) {
             case "Dodawanie":
                 return AdditionSignals(first,second);
+
+            case "Odejmowanie":
+                return SubstractionSignals(first,second);
+
+            case "Mnożenie":
+                return MultiplicationSignals(first,second);
+
+            case "Dzielenie":
+                return DivisionSignals(first,second);
 
             default:
                 return null;
