@@ -133,12 +133,12 @@ public class Controller implements Initializable {
         //HistChart histChart = new HistChart();
         //histChart.loadData(signal);
 
-        loadHistogram();
+        loadHistogram(signal);
 
         calculateParams(signal.Y);
     }
 
-    public void loadHistogram() throws IOException {
+    public void loadHistogram(Signal signal) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("HistogramView.fxml"));
         //Parent root = FXMLLoader.load(getClass().getResource("HistogramView.fxml"));
         Parent root = (Parent) loader.load();
@@ -271,6 +271,8 @@ public class Controller implements Initializable {
 
             DataChart dataChart = new DataChart();
             dataChart.loadData(signalOne, 1); //FIXME wybór rodzaju wykresu
+
+            loadHistogram(signalOne);
         }
         else {
             signalTwo = new Signal(signalTimeStart,signalFrequency);
@@ -279,6 +281,8 @@ public class Controller implements Initializable {
 
             DataChart dataChart = new DataChart();
             dataChart.loadData(signalTwo, 1); //FIXME wybór rodzaju wykresu
+
+            loadHistogram(signalTwo);
         }
 
         /*System.out.println("________");
@@ -307,6 +311,8 @@ public class Controller implements Initializable {
 
         DataChart dataChart = new DataChart();
         dataChart.loadData(signalThree, 1); //FIXME wybór rodzaju wykresu
+
+        loadHistogram(signalThree);
 
         String filePath = "wynik_"+selectedOperation;
         saveSignalToFile(filePath,signalThree);
