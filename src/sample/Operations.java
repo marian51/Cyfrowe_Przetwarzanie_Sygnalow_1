@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Operations {
     public Signal signal;
+    public String selected;
 
     public Operations(Signal signal) {
         this.signal = signal;
@@ -74,5 +75,18 @@ public class Operations {
         }
 
         return result;
+    }
+
+
+
+    public static List<Double> computeSignals(List<Double> first, List<Double> second, String choice) {
+        switch (choice) {
+            case "Dodawanie":
+                return AdditionSignals(first,second);
+
+            default:
+                return null;
+        }
+
     }
 }
