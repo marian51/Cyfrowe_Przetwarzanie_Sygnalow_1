@@ -16,9 +16,6 @@ public class Main extends Application {
         primaryStage.show();
 
 
-        //TODO zapisywanie i odczytywanie sygnałów do/z pliku
-        //TODO operacje na sygnałach
-
     }
 
 
