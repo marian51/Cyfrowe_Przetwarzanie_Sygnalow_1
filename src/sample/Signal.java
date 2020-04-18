@@ -23,6 +23,13 @@ public class Signal {
         List<Double> Y = new ArrayList<Double>();
     }
 
+    public Signal(Signal signalOne) {
+        TimeStart = signalOne.TimeStart;
+        Frequency = signalOne.Frequency;
+        X = signalOne.X;
+        Y = signalOne.Y;
+    }
+
     public void getHistogram(int value) {
 
         histogram = new ArrayList<Triplet<Double, Double, Integer>>();
