@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <SplitPane dividerPositions="0.16722408026755853" prefHeight="400.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.12962962962962962" prefHeight="400.0" prefWidth="650.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -17,6 +17,7 @@
                   <Label layoutX="14.0" layoutY="81.0" text="Czas początkowy:" />
                   <TextField fx:id="idTime" layoutX="167.0" layoutY="110.0" prefHeight="25.0" prefWidth="35.0" />
                   <TextField fx:id="idPeriod" layoutX="167.0" layoutY="142.0" prefHeight="25.0" prefWidth="35.0" />
+                  <TextField fx:id="idRate" layoutX="167.0" layoutY="174.0" prefHeight="25.0" prefWidth="35.0" />
                   <TextField fx:id="idTimeJump" layoutX="167.0" layoutY="206.0" prefHeight="25.0" prefWidth="35.0" />
                   <TextField fx:id="idProb" layoutX="167.0" layoutY="238.0" prefHeight="25.0" prefWidth="35.0" />
                   <TextField fx:id="idFrequency" layoutX="167.0" layoutY="271.0" prefHeight="25.0" prefWidth="35.0" />
@@ -30,10 +31,21 @@
                   <Label layoutX="211.0" layoutY="146.0" text="s" />
                   <Label layoutX="211.0" layoutY="210.0" text="s" />
                   <Label layoutX="211.0" layoutY="275.0" text="Hz" />
-                  <Button fx:id="btnSave" layoutX="15.0" layoutY="352.0" mnemonicParsing="false" onAction="#SaveProperties" prefHeight="25.0" prefWidth="58.0" text="Zapisz" />
-                  <TextField fx:id="idRate" layoutX="167.0" layoutY="174.0" prefHeight="25.0" prefWidth="35.0" />
+                  <Button fx:id="btnSave" layoutX="15.0" layoutY="352.0" mnemonicParsing="false" onAction="#SaveProperties" prefHeight="25.0" prefWidth="147.0" text="Wygeneruj sygnał" />
                   <Label layoutX="13.0" layoutY="178.0" text="Współczynnik wypełnienia:" />
                   <ComboBox fx:id="idCombo" layoutX="167.0" layoutY="308.0" onAction="#SetSignal" prefWidth="150.0" />
+                  <Label layoutX="276.0" layoutY="14.0" text="Obliczone parametry:" />
+                  <Label layoutX="276.0" layoutY="49.0" text="Wartość średnia:" />
+                  <Label layoutX="276.0" layoutY="81.0" text="Wartość średnia (bezwzględna):" />
+                  <Label layoutX="276.0" layoutY="114.0" text="Wartość skuteczna:" />
+                  <Label layoutX="276.0" layoutY="146.0" text="Wariancja:" />
+                  <Label layoutX="276.0" layoutY="178.0" text="Moc średnia:" />
+                  <TextField fx:id="idAvg" layoutX="472.0" layoutY="45.0" prefHeight="25.0" prefWidth="61.0" />
+                  <TextField fx:id="idAvgAbs" layoutX="472.0" layoutY="77.0" prefHeight="25.0" prefWidth="61.0" />
+                  <TextField fx:id="idEffective" layoutX="472.0" layoutY="110.0" prefHeight="25.0" prefWidth="61.0" />
+                  <TextField fx:id="idVariance" layoutX="472.0" layoutY="142.0" prefHeight="25.0" prefWidth="61.0" />
+                  <TextField fx:id="idPower" layoutX="472.0" layoutY="174.0" prefHeight="25.0" prefWidth="61.0" />
+                  <Label layoutX="13.0" layoutY="312.0" text="Wybierz sygnał:" />
                </children>
             </AnchorPane>
         </items>
