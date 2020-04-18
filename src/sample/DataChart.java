@@ -32,7 +32,8 @@ public class DataChart {
         if (selected != 9 && selected != 10) {
             lineChart = new LineChart<Number, Number>(xAxis,yAxis);
             lineChart.setCreateSymbols(false);
-            lineChart.setTitle("Wykres też");
+            //lineChart.setTitle("Wykres też");
+            lineChart.setTitle(Controller.m);
 
             lineChart.getData().add(series);
 
