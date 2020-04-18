@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
@@ -33,6 +34,11 @@ public class Controller implements Initializable {
 
     public double samplingFreq = 16;
     public int selected;
+    public TextField idAvg;
+    public TextField idAvgAbs;
+    public TextField idEffective;
+    public TextField idVariance;
+    public TextField idPower;
 
     SignalGenerator generator = new SignalGenerator(selected);
 
@@ -70,6 +76,8 @@ public class Controller implements Initializable {
         System.out.println(generator.toString());
 
         GenerateSignal();
+
+
     }
 
     public void SetSignal(ActionEvent actionEvent) {
@@ -79,7 +87,7 @@ public class Controller implements Initializable {
     }
 
     public void GenerateSignal () throws IOException {
-        signal = new Signal(generator.Amplitude, generator.Frequency, samplingFreq);
+        signal = new Signal(generator.TimeStart, generator.Time, generator.Frequency, samplingFreq);
         signal.X = new ArrayList<>();
         signal.Y = new ArrayList<>();
         //System.out.println("generator.TimeStart = " + generator.TimeStart);
@@ -103,6 +111,8 @@ public class Controller implements Initializable {
         //histChart.loadData(signal);
 
         loadHistogram();
+
+        calculateParams(signal.Y);
     }
 
     public void loadHistogram() throws IOException {
@@ -117,6 +127,14 @@ public class Controller implements Initializable {
         stage.setTitle("Wykres hustogramu");
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void calculateParams(List<Double> Xs) {
+        idAvg.textProperty().setValue(Double.toString(Math.round(Operations.AverageSignal(Xs)*100.0)/100.0));
+        idAvgAbs.textProperty().setValue(Double.toString(Math.round(Operations.AverageAbsSignal(Xs)*100.0)/100.0));
+        idEffective.textProperty().setValue(Double.toString(Math.round(Operations.EffectiveValueSignal(Xs)*1000.0)/1000.0));
+        idVariance.textProperty().setValue(Double.toString(Math.round(Operations.VarianceSignal(Xs)*100.0)/100.0));
+        idPower.textProperty().setValue(Double.toString(Math.round(Operations.AveragePowerSignal(Xs)*100.0)/100.0));
     }
 
 
