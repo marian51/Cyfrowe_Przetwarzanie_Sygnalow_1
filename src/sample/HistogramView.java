@@ -5,6 +5,8 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -13,9 +15,16 @@ import java.util.ResourceBundle;
 public class HistogramView implements Initializable {
     public Pane idPane;
     public Signal signal;
+    public Slider idSlider;
+    public Pane idPane2;
+    public Label idLabel;
+    public int value=10;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //double v = idSlider.getValue();
+        //idLabel.setText(String.valueOf(idSlider.getValue()));
+
 
     }
 
@@ -23,7 +32,7 @@ public class HistogramView implements Initializable {
         idPane.getChildren().clear();
         //System.out.println("Metoda");
         //System.out.println("Próba danych; częstotliwość = " + signal.Frequency);
-        signal.getHistogram(10);
+        signal.getHistogram(value);
 
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Przedziały");
@@ -50,5 +59,11 @@ public class HistogramView implements Initializable {
     public void getSignal (Signal signal) {
         this.signal = signal;
         loadData();
+        idSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            idLabel.setText(Double.toString(newValue.intValue()));
+            value = (int)idSlider.getValue();
+            loadData();
+        });
+
     }
 }
