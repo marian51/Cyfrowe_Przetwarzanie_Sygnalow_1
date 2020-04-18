@@ -14,6 +14,13 @@
                </font>
             </Label>
             <Pane fx:id="idPane" prefHeight="389.0" prefWidth="600.0" />
+            <Pane fx:id="idPane2" prefHeight="115.0" prefWidth="600.0">
+               <children>
+                  <Slider fx:id="idSlider" blockIncrement="5.0" layoutX="164.0" layoutY="2.0" majorTickUnit="5.0" max="20.0" minorTickCount="4" prefHeight="14.0" prefWidth="258.0" showTickLabels="true" showTickMarks="true" value="10.0" />
+                  <Label layoutX="438.0" layoutY="12.0" text="Wartość suwaka:" />
+                  <Label fx:id="idLabel" layoutX="532.0" layoutY="12.0" text="10" />
+               </children>
+            </Pane>
          </children>
       </VBox>
    </children>
