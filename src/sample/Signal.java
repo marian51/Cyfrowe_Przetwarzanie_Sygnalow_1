@@ -14,11 +14,11 @@ public class Signal {
     public List<Double> Y;
     public List<Triplet<Double, Double, Integer>> histogram;
 
-    public Signal(double timeStart, double time, double frequency, double samplingFreq) {
+    public Signal(double timeStart, double frequency) {
         TimeStart = timeStart;
         Frequency = frequency;
-        SamplingFreq = samplingFreq;
-        Time = time;
+        //SamplingFreq = samplingFreq;
+        //Time = time;
         List<Double> X = new ArrayList<Double>();
         List<Double> Y = new ArrayList<Double>();
     }
