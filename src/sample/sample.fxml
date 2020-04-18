@@ -3,14 +3,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<Pane fx:id="idPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <SplitPane dividerPositions="0.12962962962962962" prefHeight="400.0" prefWidth="650.0">
+      <SplitPane dividerPositions="0.15123456790123457" prefHeight="400.0" prefWidth="650.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane fx:id="idLeftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Button fx:id="idButtonSave" layoutX="10.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnSave" prefHeight="49.0" prefWidth="61.0" text="Zapisz sygnał" textAlignment="CENTER" wrapText="true" />
-                  <Button fx:id="idButtonLoad" layoutX="10.0" layoutY="79.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="61.0" text="Wczytaj sygnał" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="idButtonSave" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnSave" prefHeight="49.0" prefWidth="68.0" text="Zapisz sygnał" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="idButtonLoad1" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" onAction="#btnLoad" prefHeight="49.0" prefWidth="68.0" text="Wczytaj 1. sygnał" textAlignment="CENTER" wrapText="true" />
+                  <Button fx:id="idButtonLoad2" layoutX="14.0" layoutY="175.0" mnemonicParsing="false" onAction="#btnLoadTwo" prefHeight="49.0" prefWidth="68.0" text="Wczytaj 2. sygnał" textAlignment="CENTER" wrapText="true" />
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
