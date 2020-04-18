@@ -6,16 +6,18 @@ import java.util.List;
 
 public class Signal {
     public double TimeStart;
+    public double Time;
     public double Frequency;
     public double SamplingFreq;
     public List<Double> X;
     public List<Double> Y;
     public List<Triplet<Double, Double, Integer>> histogram;
 
-    public Signal(double timeStart, double frequency, double samplingFreq) {
+    public Signal(double timeStart, double time, double frequency, double samplingFreq) {
         TimeStart = timeStart;
         Frequency = frequency;
         SamplingFreq = samplingFreq;
+        Time = time;
         List<Double> X = new ArrayList<Double>();
         List<Double> Y = new ArrayList<Double>();
     }
