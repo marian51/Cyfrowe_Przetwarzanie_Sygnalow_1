@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -50,6 +51,7 @@ public class Controller implements Initializable {
     public Button idButtonLoad;
     public AnchorPane idLeftPane;
     public Pane idPane;
+    public ChoiceBox idChoice;
 
     SignalGenerator generator = new SignalGenerator(selected);
 
@@ -70,7 +72,15 @@ public class Controller implements Initializable {
                 "11. Szum impulsowy"
         );
 
+        ObservableList<String> choiceList = FXCollections.observableArrayList(
+                "Dodawanie",
+                "Odejmowanie",
+                "Mnożenie",
+                "Dzielenie"
+        );
+
         idCombo.setItems(list);
+        idChoice.setItems(choiceList);
 
     }
 
@@ -267,4 +277,11 @@ public class Controller implements Initializable {
     }
 
 
+    public void compute(ActionEvent actionEvent) {
+        String selectedOperation = idChoice.valueProperty().getValue().toString();
+        System.out.println("Wybrana operacja: "+ selectedOperation);
+
+        List<Double> computeResult = new ArrayList<>();
+        //computeResult = Operations.computeSignals(signalOne.Y,signalTwo.Y,selectedOperation);
+    }
 }
