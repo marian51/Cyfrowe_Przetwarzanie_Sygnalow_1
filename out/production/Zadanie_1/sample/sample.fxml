@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <SplitPane dividerPositions="0.16722408026755853" prefHeight="400.0" prefWidth="600.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Wpisz parametry:" />
+                  <Label layoutX="14.0" layoutY="49.0" text="Amplituda:" />
+                  <TextField fx:id="idAmplitude" layoutX="167.0" layoutY="45.0" prefHeight="25.0" prefWidth="35.0" />
+                  <TextField fx:id="idTimeStart" layoutX="167.0" layoutY="77.0" prefHeight="25.0" prefWidth="35.0" />
+                  <Label layoutX="14.0" layoutY="81.0" text="Czas początkowy:" />
+                  <TextField fx:id="idTime" layoutX="167.0" layoutY="110.0" prefHeight="25.0" prefWidth="35.0" />
+                  <TextField fx:id="idPeriod" layoutX="167.0" layoutY="142.0" prefHeight="25.0" prefWidth="35.0" />
+                  <TextField fx:id="idTimeJump" layoutX="167.0" layoutY="206.0" prefHeight="25.0" prefWidth="35.0" />
+                  <TextField fx:id="idProb" layoutX="167.0" layoutY="238.0" prefHeight="25.0" prefWidth="35.0" />
+                  <TextField fx:id="idFrequency" layoutX="167.0" layoutY="271.0" prefHeight="25.0" prefWidth="35.0" />
+                  <Label layoutX="14.0" layoutY="114.0" text="Czas trwania sygnału:" />
+                  <Label layoutX="14.0" layoutY="146.0" text="Okres podstawowy:" />
+                  <Label layoutX="13.0" layoutY="210.0" text="Czas skoku:" />
+                  <Label layoutX="13.0" layoutY="242.0" text="Prawdopodobieństwo:" />
+                  <Label layoutX="13.0" layoutY="275.0" text="Częstotliwość próbkowania:" />
+                  <Label layoutX="211.0" layoutY="81.0" text="s" />
+                  <Label layoutX="211.0" layoutY="114.0" text="s" />
+                  <Label layoutX="211.0" layoutY="146.0" text="s" />
+                  <Label layoutX="211.0" layoutY="210.0" text="s" />
+                  <Label layoutX="211.0" layoutY="275.0" text="Hz" />
+                  <Button fx:id="btnSave" layoutX="15.0" layoutY="352.0" mnemonicParsing="false" onAction="#SaveProperties" prefHeight="25.0" prefWidth="58.0" text="Zapisz" />
+                  <TextField fx:id="idRate" layoutX="167.0" layoutY="174.0" prefHeight="25.0" prefWidth="35.0" />
+                  <Label layoutX="13.0" layoutY="178.0" text="Współczynnik wypełnienia:" />
+                  <ComboBox fx:id="idCombo" layoutX="167.0" layoutY="308.0" onAction="#SetSignal" prefWidth="150.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</Pane>
