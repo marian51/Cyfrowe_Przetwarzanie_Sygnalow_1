@@ -1,5 +1,6 @@
 package sample;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Operations {
@@ -64,5 +65,14 @@ public class Operations {
 
     public static void calculateParams(List<Double> Ys) {
 
+    }
+
+    public static List<Double> AdditionSignals(List<Double> first, List<Double> second) {
+        List<Double> result = new ArrayList<>();
+        for (int i=0; i<Math.max(first.size(),second.size()); i++) {
+            result.add(first.get(i)+second.get(i));
+        }
+
+        return result;
     }
 }
