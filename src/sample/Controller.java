@@ -11,10 +11,14 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -32,6 +36,8 @@ public class Controller implements Initializable {
     public ComboBox idCombo;
 
     public Signal signal;
+    public Signal signalOne;
+    public Signal signalTwo;
 
     public double samplingFreq = 16;
     public int selected;
@@ -42,6 +48,8 @@ public class Controller implements Initializable {
     public TextField idPower;
     public Button idButtonSave;
     public Button idButtonLoad;
+    public AnchorPane idLeftPane;
+    public Pane idPane;
 
     SignalGenerator generator = new SignalGenerator(selected);
 
@@ -90,7 +98,7 @@ public class Controller implements Initializable {
     }
 
     public void GenerateSignal () throws IOException {
-        signal = new Signal(generator.TimeStart, generator.Time, generator.Frequency, samplingFreq);
+        signal = new Signal(generator.TimeStart, generator.Frequency);
         signal.X = new ArrayList<>();
         signal.Y = new ArrayList<>();
         //System.out.println("generator.TimeStart = " + generator.TimeStart);
@@ -141,7 +149,7 @@ public class Controller implements Initializable {
     }
 
     public void saveSignalToFile(String filePath, Signal signal) throws IOException {
-        String filePathBin = filePath + ".bin";
+        String filePathBin = filePath + ".dat";
         String filePathTxt = filePath + ".txt";
 
         FileOutputStream file = new FileOutputStream(filePathBin);
@@ -150,6 +158,9 @@ public class Controller implements Initializable {
 
 
         //zapis do pliku binarnego
+
+
+
         data.writeDouble(Math.round(signal.TimeStart*100.0)/100.0);
         data.writeDouble(Math.round(signal.Frequency*100.0)/100.0);
         data.writeDouble(Math.round(signal.type*100.0)/100.0);
@@ -182,4 +193,78 @@ public class Controller implements Initializable {
         String filePath = String.valueOf(idCombo.getSelectionModel().selectedItemProperty().getValue());
         saveSignalToFile(filePath,signal);
     }
+
+    public void btnLoad(ActionEvent actionEvent) throws IOException {
+        loadSignalFromFile(1);
+    }
+
+    public void btnLoadTwo(ActionEvent actionEvent) throws IOException {
+        loadSignalFromFile(2);
+    }
+
+    public void loadSignalFromFile(int signal) throws IOException {
+        List<Double> readData = new ArrayList<>();
+        List<Double> newY = new ArrayList<>();
+        List<Double> newX = new ArrayList<>();
+
+        //okno dialogowe do wybierania pliku
+        FileChooser fileChooser = new FileChooser();
+        Stage stage = new Stage();
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        FileInputStream openedFile = new FileInputStream(selectedFile);
+        BufferedInputStream reader = new BufferedInputStream(openedFile);
+        DataInputStream dataInputStream = new DataInputStream(openedFile);
+
+        int ch;
+
+        try {
+            while (true) {
+                Double data = dataInputStream.readDouble();
+                System.out.println(data);
+                readData.add(data);
+            }
+        }
+        catch (EOFException ignore) {
+
+        }
+
+        double signalTimeStart = readData.get(0);
+        double signalFrequency = readData.get(1);
+        int size = readData.get(3).intValue();
+
+        for (int i=0; i<size; i++) {
+            newY.add(readData.get(i+4));
+        }
+
+        System.out.println("________");
+        for (double i=0; i<newY.size(); i++) {
+            newX.add(signalTimeStart+i/signalFrequency);
+            //System.out.println(i/signalFrequency);
+        }
+
+        if(signal==1) {
+            signalOne = new Signal(signalTimeStart,signalFrequency);
+            signalOne.Y = newY;
+            signalOne.X = newX;
+
+            DataChart dataChart = new DataChart();
+            dataChart.loadData(signalOne, 1); //FIXME wybór rodzaju wykresu
+        }
+        else {
+            signalTwo = new Signal(signalTimeStart,signalFrequency);
+            signalTwo.Y = newY;
+            signalTwo.X = newX;
+
+            DataChart dataChart = new DataChart();
+            dataChart.loadData(signalTwo, 1); //FIXME wybór rodzaju wykresu
+        }
+
+        /*System.out.println("________");
+        for (Double d : newY) {
+            System.out.println(d);
+        }*/
+        //reader.close();
+    }
+
+
 }
