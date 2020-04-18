@@ -12,13 +12,13 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 650, 400));
         primaryStage.show();
 
 
         //TODO zapisywanie i odczytywanie sygnałów do/z pliku
         //TODO operacje na sygnałach
-        //TODO informacje o sygnale (wartość średnia itp)
+
     }
 
 
