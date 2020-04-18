@@ -13,54 +13,56 @@ public class Operations {
 
     }
 
-    public static double AverageSignal(List<Double> Xs) {
+    public static double AverageSignal(List<Double> Ys) {
         double result;
         double sum=0;
-        for (int i=0; i<Xs.size(); i++) {
-            sum+=Xs.get(i);
+        for (int i=0; i<Ys.size(); i++) {
+            System.out.println("Wartość: "+Ys.get(i));
+            sum+=Ys.get(i);
         }
-        result = sum / Xs.size();
+        result = sum / Ys.size();
+        System.out.println("Suma="+sum+", próbki="+Ys.size()+", wynik="+result);
         return result;
     }
 
-    public static double AverageAbsSignal(List<Double> Xs) {
+    public static double AverageAbsSignal(List<Double> Ys) {
         double result;
         double sum=0;
-        for (int i=0; i<Xs.size(); i++) {
-            sum+=Math.abs(Xs.get(i));
+        for (int i=0; i<Ys.size(); i++) {
+            sum+=Math.abs(Ys.get(i));
         }
-        result = sum / Xs.size();
+        result = sum / Ys.size();
         return result;
     }
 
-    public static double AveragePowerSignal(List<Double> Xs) {
+    public static double AveragePowerSignal(List<Double> Ys) {
         double result;
         double sum=0;
-        for (int i=0; i<Xs.size(); i++) {
-            sum+=Math.pow(Xs.get(i),2);
+        for (int i=0; i<Ys.size(); i++) {
+            sum+=Math.pow(Ys.get(i),2);
         }
-        result = sum / Xs.size();
+        result = sum / Ys.size();
         return result;
     }
 
-    public static double EffectiveValueSignal(List<Double> Xs) {
+    public static double EffectiveValueSignal(List<Double> Ys) {
         double result;
-        result = Math.sqrt(AveragePowerSignal(Xs));
+        result = Math.sqrt(AveragePowerSignal(Ys));
         return result;
     }
 
-    public static double VarianceSignal(List<Double> Xs) {
+    public static double VarianceSignal(List<Double> Ys) {
         double result, avg;
-        avg = AverageSignal(Xs);
+        avg = AverageSignal(Ys);
         double sum=0;
-        for (int i=0; i<Xs.size(); i++) {
-            sum+=Math.pow((Xs.get(i)-avg),2);
+        for (int i=0; i<Ys.size(); i++) {
+            sum+=Math.pow((Ys.get(i)-avg),2);
         }
-        result = sum / Xs.size();
+        result = sum / Ys.size();
         return result;
     }
 
-    public static void calculateParams() {
+    public static void calculateParams(List<Double> Ys) {
 
     }
 }
