@@ -53,6 +53,7 @@ public class Controller implements Initializable {
     public AnchorPane idLeftPane;
     public Pane idPane;
     public ChoiceBox idChoice;
+    public static String m;
 
     SignalGenerator generator = new SignalGenerator(selected);
 
@@ -160,10 +161,16 @@ public class Controller implements Initializable {
     }
 
     public void saveSignalToFile(String filePath, Signal signal) throws IOException {
-        String filePathBin = filePath + ".dat";
-        String filePathTxt = filePath + ".txt";
+        filePath="results\\"+filePath;
+        String filePathBin = filePath + "1.dat";
+        String filePathTxt = filePath + "1.txt";
 
-        FileOutputStream file = new FileOutputStream(filePathBin);
+        File f = new File(filePathBin);
+        for(int i=2; f.exists(); i++) {
+            f = new File(String.format(filePath+"%d.dat",i));
+        }
+        FileOutputStream file = new FileOutputStream(f);
+
         BufferedOutputStream buff = new BufferedOutputStream(file);
         DataOutputStream data = new DataOutputStream(buff);
 
@@ -183,7 +190,11 @@ public class Controller implements Initializable {
         buff.flush();
         file.close();
 
-        PrintWriter fileWriter = new PrintWriter(new File(filePathTxt));
+        File g = new File(filePathTxt);
+        for(int i=2; g.exists(); i++) {
+            g = new File(String.format(filePath+"%d.txt",i));
+        }
+        PrintWriter fileWriter = new PrintWriter(g);
 
         //zapis do pliku txt
         fileWriter.println("Time start:" + signal.TimeStart);
@@ -278,8 +289,9 @@ public class Controller implements Initializable {
     }
 
 
-    public void compute(ActionEvent actionEvent) {
+    public void compute(ActionEvent actionEvent) throws IOException {
         String selectedOperation = idChoice.valueProperty().getValue().toString();
+        m = selectedOperation;
         System.out.println("Wybrana operacja: "+ selectedOperation);
 
         List<Double> computeResult = new ArrayList<>();
@@ -295,5 +307,9 @@ public class Controller implements Initializable {
 
         DataChart dataChart = new DataChart();
         dataChart.loadData(signalThree, 1); //FIXME wybór rodzaju wykresu
+
+        String filePath = "wynik_"+selectedOperation;
+        saveSignalToFile(filePath,signalThree);
     }
+
 }
