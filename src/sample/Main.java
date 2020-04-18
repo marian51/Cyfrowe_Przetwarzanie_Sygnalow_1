@@ -14,6 +14,11 @@ public class Main extends Application {
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
+
+        //TODO ustawianie histogramu suwakiem
+        //TODO zapisywanie i odczytywanie sygnałów do/z pliku
+        //TODO operacje na sygnałach
+        //TODO informacje o sygnale (wartość średnia itp)
     }
 
 
