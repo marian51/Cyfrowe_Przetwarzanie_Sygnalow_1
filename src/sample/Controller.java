@@ -39,6 +39,7 @@ public class Controller implements Initializable {
     public Signal signal;
     public Signal signalOne;
     public Signal signalTwo;
+    public Signal signalThree;
 
     public double samplingFreq = 16;
     public int selected;
@@ -282,6 +283,17 @@ public class Controller implements Initializable {
         System.out.println("Wybrana operacja: "+ selectedOperation);
 
         List<Double> computeResult = new ArrayList<>();
-        //computeResult = Operations.computeSignals(signalOne.Y,signalTwo.Y,selectedOperation);
+        computeResult = Operations.computeSignals(signalOne.Y,signalTwo.Y,selectedOperation);
+
+        System.out.println("________");
+        for (Double d : computeResult) {
+            System.out.println(d);
+        }
+
+        signalThree = new Signal(signalOne);
+        signalThree.Y=computeResult;
+
+        DataChart dataChart = new DataChart();
+        dataChart.loadData(signalThree, 1); //FIXME wybór rodzaju wykresu
     }
 }
