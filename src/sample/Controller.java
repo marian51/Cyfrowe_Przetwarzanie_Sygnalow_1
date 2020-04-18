@@ -8,11 +8,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,8 @@ public class Controller implements Initializable {
     public TextField idEffective;
     public TextField idVariance;
     public TextField idPower;
+    public Button idButtonSave;
+    public Button idButtonLoad;
 
     SignalGenerator generator = new SignalGenerator(selected);
 
@@ -137,7 +140,46 @@ public class Controller implements Initializable {
         idPower.textProperty().setValue(Double.toString(Math.round(Operations.AveragePowerSignal(Xs)*100.0)/100.0));
     }
 
+    public void saveSignalToFile(String filePath, Signal signal) throws IOException {
+        String filePathBin = filePath + ".bin";
+        String filePathTxt = filePath + ".txt";
+
+        FileOutputStream file = new FileOutputStream(filePathBin);
+        BufferedOutputStream buff = new BufferedOutputStream(file);
+        DataOutputStream data = new DataOutputStream(buff);
 
 
+        //zapis do pliku binarnego
+        data.writeDouble(Math.round(signal.TimeStart*100.0)/100.0);
+        data.writeDouble(Math.round(signal.Frequency*100.0)/100.0);
+        data.writeDouble(Math.round(signal.type*100.0)/100.0);
+        data.writeDouble(Math.round(signal.Y.size()*100.0)/100.0);
+        for (Double i : signal.Y) {
+            data.writeDouble(Math.round(i*100.0)/100.0);
+        }
+        data.close();
+        buff.flush();
+        file.close();
 
+        PrintWriter fileWriter = new PrintWriter(new File(filePathTxt));
+
+        //zapis do pliku txt
+        fileWriter.println("Time start:" + signal.TimeStart);
+        fileWriter.println("Frequency: " + signal.Frequency);
+        fileWriter.println("Type: " + signal.type);
+        fileWriter.println("Size: " + signal.Y.size());
+        for (int i=0; i<signal.Y.size(); i++) {
+            //t=i+1;
+            //fileWriter.write(Double.toString(Math.round(signal.Y.get(i)*100.0)/100.0)+"\n");
+            fileWriter.println(String.valueOf(Math.round(signal.Y.get(i)*100.0)/100.0));
+        }
+        fileWriter.close();
+
+    }
+
+
+    public void btnSave(ActionEvent actionEvent) throws IOException {
+        String filePath = String.valueOf(idCombo.getSelectionModel().selectedItemProperty().getValue());
+        saveSignalToFile(filePath,signal);
+    }
 }
