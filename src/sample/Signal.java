@@ -9,6 +9,7 @@ public class Signal {
     public double Time;
     public double Frequency;
     public double SamplingFreq;
+    public byte type=0;
     public List<Double> X;
     public List<Double> Y;
     public List<Triplet<Double, Double, Integer>> histogram;
