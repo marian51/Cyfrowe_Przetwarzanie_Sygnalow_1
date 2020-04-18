@@ -3,11 +3,16 @@ package sample;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -23,6 +28,8 @@ public class Controller implements Initializable {
     public TextField idFrequency;
     public TextField idRate;
     public ComboBox idCombo;
+
+    public Signal signal;
 
     public double samplingFreq = 16;
     public int selected;
@@ -50,7 +57,7 @@ public class Controller implements Initializable {
 
     }
 
-    public void SaveProperties(ActionEvent actionEvent) {
+    public void SaveProperties(ActionEvent actionEvent) throws IOException {
         generator.Amplitude = Double.parseDouble(idAmplitude.textProperty().get());
         generator.TimeStart = Double.parseDouble(idTimeStart.textProperty().get());
         generator.Time = Double.parseDouble(idTime.textProperty().get());
@@ -71,8 +78,8 @@ public class Controller implements Initializable {
         System.out.println("Wybrana opcja: " + generator.selected); //FIXME konsola
     }
 
-    public void GenerateSignal () {
-        Signal signal = new Signal(generator.Amplitude, generator.Frequency, samplingFreq);
+    public void GenerateSignal () throws IOException {
+        signal = new Signal(generator.Amplitude, generator.Frequency, samplingFreq);
         signal.X = new ArrayList<>();
         signal.Y = new ArrayList<>();
         //System.out.println("generator.TimeStart = " + generator.TimeStart);
@@ -92,9 +99,27 @@ public class Controller implements Initializable {
         DataChart dataChart = new DataChart();
         dataChart.loadData(signal, generator.selected);
 
-        HistChart histChart = new HistChart();
-        histChart.loadData(signal);
+        //HistChart histChart = new HistChart();
+        //histChart.loadData(signal);
+
+        loadHistogram();
     }
+
+    public void loadHistogram() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("HistogramView.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("HistogramView.fxml"));
+        Parent root = (Parent) loader.load();
+        HistogramView histogramView = loader.getController();
+        histogramView.getSignal(signal);
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setTitle("Wykres hustogramu");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+
 
 
 }
