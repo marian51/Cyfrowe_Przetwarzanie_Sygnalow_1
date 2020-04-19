@@ -12,7 +12,6 @@ public class Operations {
     }
 
     public Operations(){
-
     }
 
     public static double AverageSignal(List<Double> Ys) {
@@ -64,10 +63,6 @@ public class Operations {
         return result;
     }
 
-    public static void calculateParams(List<Double> Ys) {
-
-    }
-
     public static List<Double> AdditionSignals(List<Double> first, List<Double> second) {
         List<Double> result = new ArrayList<>();
         for (int i=0; i<first.size(); i++) {
@@ -107,8 +102,6 @@ public class Operations {
         }
         return result;
     }
-
-
 
     public static List<Double> computeSignals(List<Double> first, List<Double> second, String choice) {
         switch (choice) {
