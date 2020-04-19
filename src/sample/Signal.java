@@ -17,8 +17,6 @@ public class Signal {
     public Signal(double timeStart, double frequency) {
         TimeStart = timeStart;
         Frequency = frequency;
-        //SamplingFreq = samplingFreq;
-        //Time = time;
         List<Double> X = new ArrayList<Double>();
         List<Double> Y = new ArrayList<Double>();
     }
@@ -69,8 +67,6 @@ public class Signal {
         intervalMax = (double) Math.round( (min+(interval*value))*100 )/100;
         Triplet triplet = new Triplet(intervalMin,intervalMax,number);
         histogram.add(triplet);
-
-
 
     }
 }
