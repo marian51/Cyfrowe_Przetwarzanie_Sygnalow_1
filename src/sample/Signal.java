@@ -61,7 +61,7 @@ public class Signal {
         number=0;
         for (int j = 0; j < Y.size(); j++) {
             double t = Y.get(j);
-            if ((t>=min+(interval*(value-1))) && (t<min+(interval*value))) {
+            if ((t>=min+(interval*(value-1))) && (t<=min+(interval*value))) {
                 number++;
             }
         }
