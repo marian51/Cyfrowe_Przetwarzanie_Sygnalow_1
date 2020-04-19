@@ -1,6 +1,5 @@
 package sample;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class SignalGenerator {
@@ -28,7 +27,6 @@ public class SignalGenerator {
 
     //2. Szum Gaussowski
     public double GaussianNoise (double time) {
-        //double str = Amplitude / 3;
         double x1 = rand.nextDouble();
         double x2 = rand.nextDouble();
 
@@ -55,8 +53,6 @@ public class SignalGenerator {
     //6. Sygnał prostokątny
     public double RectangularSignal (double time) {
         int k = (int)((time - TimeStart) / Period );
-        //k = (int)((time / Period) - (TimeStart / Period));
-        //k = (int)(1/Frequency);
 
         if (time >= (k * Period + TimeStart) && time < (Rate * Period + k * Period + TimeStart)) { //FIXME tutaj może być błąd z podawanymi wartościami
             return Amplitude;
@@ -108,7 +104,7 @@ public class SignalGenerator {
     //10. Impuls jednostkowy
     public double UnitaryImpulse (double time) {
         if (time == TimeJump){
-            return 1; //FIXME tu może być A
+            return 1;
         }
         else {
             return 0;
