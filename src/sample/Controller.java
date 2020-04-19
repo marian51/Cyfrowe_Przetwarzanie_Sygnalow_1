@@ -63,7 +63,7 @@ public class Controller implements Initializable {
         ObservableList<String> list = FXCollections.observableArrayList(
                 "1. Szum o rozkładzie jednostkowym",
                 "2. Szum Gaussowski",
-                "3. sygnał sinusoidalny",
+                "3. Sygnał sinusoidalny",
                 "4. Sygnał sinusoidalny wyprostowany jednopołówkowo",
                 "5. Sygnał sinusoidalny wyprosotwany dwupołówkowo",
                 "6. Sygnał prostokątny",
@@ -100,24 +100,18 @@ public class Controller implements Initializable {
 
         GenerateSignal();
 
-
     }
 
     public void SetSignal(ActionEvent actionEvent) {
         selected = idCombo.getSelectionModel().selectedIndexProperty().get();
         generator.selected = selected;
-        System.out.println("Wybrana opcja: " + generator.selected); //FIXME konsola
     }
 
     public void GenerateSignal () throws IOException {
         signal = new Signal(generator.TimeStart, generator.Frequency);
         signal.X = new ArrayList<>();
         signal.Y = new ArrayList<>();
-        //System.out.println("generator.TimeStart = " + generator.TimeStart);
-        //System.out.println("generator.TimeStart+4 = " + generator.TimeStart+4);
-        //System.out.println("1/samplingFreq = " + 1/samplingFreq);
         for (Double i = generator.TimeStart; i <= generator.TimeStart + generator.Time; i += 1/generator.Frequency) {
-            //System.out.println("====>" + i);
             signal.X.add(i);
             signal.Y.add(generator.generate(i));
         }
@@ -126,12 +120,8 @@ public class Controller implements Initializable {
             System.out.println(signal.X.get(i) + " " + signal.Y.get(i));
         }
 
-
         DataChart dataChart = new DataChart();
         dataChart.loadData(signal, generator.selected);
-
-        //HistChart histChart = new HistChart();
-        //histChart.loadData(signal);
 
         loadHistogram(signal);
 
@@ -140,24 +130,23 @@ public class Controller implements Initializable {
 
     public void loadHistogram(Signal signal) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("HistogramView.fxml"));
-        //Parent root = FXMLLoader.load(getClass().getResource("HistogramView.fxml"));
         Parent root = (Parent) loader.load();
         HistogramView histogramView = loader.getController();
         histogramView.getSignal(signal);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
-        stage.setTitle("Wykres hustogramu");
+        stage.setTitle("Wykres histogramu");
         stage.setScene(scene);
         stage.show();
     }
 
-    public void calculateParams(List<Double> Xs) {
-        idAvg.textProperty().setValue(Double.toString(Math.round(Operations.AverageSignal(Xs)*100.0)/100.0));
-        idAvgAbs.textProperty().setValue(Double.toString(Math.round(Operations.AverageAbsSignal(Xs)*100.0)/100.0));
-        idEffective.textProperty().setValue(Double.toString(Math.round(Operations.EffectiveValueSignal(Xs)*1000.0)/1000.0));
-        idVariance.textProperty().setValue(Double.toString(Math.round(Operations.VarianceSignal(Xs)*100.0)/100.0));
-        idPower.textProperty().setValue(Double.toString(Math.round(Operations.AveragePowerSignal(Xs)*100.0)/100.0));
+    public void calculateParams(List<Double> Ys) {
+        idAvg.textProperty().setValue(Double.toString(Math.round(Operations.AverageSignal(Ys)*100.0)/100.0));
+        idAvgAbs.textProperty().setValue(Double.toString(Math.round(Operations.AverageAbsSignal(Ys)*100.0)/100.0));
+        idEffective.textProperty().setValue(Double.toString(Math.round(Operations.EffectiveValueSignal(Ys)*1000.0)/1000.0));
+        idVariance.textProperty().setValue(Double.toString(Math.round(Operations.VarianceSignal(Ys)*100.0)/100.0));
+        idPower.textProperty().setValue(Double.toString(Math.round(Operations.AveragePowerSignal(Ys)*100.0)/100.0));
     }
 
     public void saveSignalToFile(String filePath, Signal signal) throws IOException {
@@ -165,6 +154,7 @@ public class Controller implements Initializable {
         String filePathBin = filePath + "1.dat";
         String filePathTxt = filePath + "1.txt";
 
+        //zapis pliku binarnego
         File f = new File(filePathBin);
         for(int i=2; f.exists(); i++) {
             f = new File(String.format(filePath+"%d.dat",i));
@@ -173,11 +163,6 @@ public class Controller implements Initializable {
 
         BufferedOutputStream buff = new BufferedOutputStream(file);
         DataOutputStream data = new DataOutputStream(buff);
-
-
-        //zapis do pliku binarnego
-
-
 
         data.writeDouble(Math.round(signal.TimeStart*100.0)/100.0);
         data.writeDouble(Math.round(signal.Frequency*100.0)/100.0);
@@ -190,26 +175,22 @@ public class Controller implements Initializable {
         buff.flush();
         file.close();
 
+        //zapis pliku tekstowego
         File g = new File(filePathTxt);
         for(int i=2; g.exists(); i++) {
             g = new File(String.format(filePath+"%d.txt",i));
         }
         PrintWriter fileWriter = new PrintWriter(g);
 
-        //zapis do pliku txt
         fileWriter.println("Time start:" + signal.TimeStart);
         fileWriter.println("Frequency: " + signal.Frequency);
         fileWriter.println("Type: " + signal.type);
         fileWriter.println("Size: " + signal.Y.size());
         for (int i=0; i<signal.Y.size(); i++) {
-            //t=i+1;
-            //fileWriter.write(Double.toString(Math.round(signal.Y.get(i)*100.0)/100.0)+"\n");
             fileWriter.println(String.valueOf(Math.round(signal.Y.get(i)*100.0)/100.0));
         }
         fileWriter.close();
-
     }
-
 
     public void btnSave(ActionEvent actionEvent) throws IOException {
         String filePath = String.valueOf(idCombo.getSelectionModel().selectedItemProperty().getValue());
@@ -247,7 +228,6 @@ public class Controller implements Initializable {
             }
         }
         catch (EOFException ignore) {
-
         }
 
         double signalTimeStart = readData.get(0);
@@ -261,7 +241,6 @@ public class Controller implements Initializable {
         System.out.println("________");
         for (double i=0; i<newY.size(); i++) {
             newX.add(signalTimeStart+i/signalFrequency);
-            //System.out.println(i/signalFrequency);
         }
 
         if(signal==1) {
@@ -284,12 +263,6 @@ public class Controller implements Initializable {
 
             loadHistogram(signalTwo);
         }
-
-        /*System.out.println("________");
-        for (Double d : newY) {
-            System.out.println(d);
-        }*/
-        //reader.close();
     }
 
 
@@ -316,6 +289,8 @@ public class Controller implements Initializable {
 
         String filePath = "wynik_"+selectedOperation;
         saveSignalToFile(filePath,signalThree);
+
+        calculateParams(signalThree.Y);
     }
 
 }
