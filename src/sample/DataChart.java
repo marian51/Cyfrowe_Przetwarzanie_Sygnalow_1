@@ -2,7 +2,6 @@ package sample;
 
 import javafx.scene.Scene;
 import javafx.scene.chart.*;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class DataChart {
@@ -20,8 +19,6 @@ public class DataChart {
         yAxis = new NumberAxis();
         yAxis.setLabel("Amplituda");
 
-
-
         XYChart.Series series = new XYChart.Series();
 
         series.setName("Seria");
@@ -32,7 +29,6 @@ public class DataChart {
         if (selected != 9 && selected != 10) {
             lineChart = new LineChart<Number, Number>(xAxis,yAxis);
             lineChart.setCreateSymbols(false);
-            //lineChart.setTitle("Wykres też");
             lineChart.setTitle(Controller.m);
 
             lineChart.getData().add(series);
@@ -47,10 +43,7 @@ public class DataChart {
             chart = scatterChart;
         }
 
-
-
         Scene scene = new Scene(chart);
-
 
         Stage stage = new Stage();
 
