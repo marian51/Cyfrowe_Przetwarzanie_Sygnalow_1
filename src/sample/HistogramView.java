@@ -22,16 +22,10 @@ public class HistogramView implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //double v = idSlider.getValue();
-        //idLabel.setText(String.valueOf(idSlider.getValue()));
-
-
     }
 
     public void loadData() {
         idPane.getChildren().clear();
-        //System.out.println("Metoda");
-        //System.out.println("Próba danych; częstotliwość = " + signal.Frequency);
         signal.getHistogram(value);
 
         CategoryAxis xAxis = new CategoryAxis();
