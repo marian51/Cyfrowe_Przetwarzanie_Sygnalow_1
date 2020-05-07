@@ -64,10 +64,8 @@
                   <TextField fx:id="idQuantStep" layoutX="182.0" layoutY="45.0" prefHeight="20.0" prefWidth="35.0" />
                   <TextField fx:id="idQuantSample" layoutX="182.0" layoutY="78.0" prefHeight="20.0" prefWidth="35.0" />
                   <TextField fx:id="idQuantCount" layoutX="182.0" layoutY="111.0" prefHeight="20.0" prefWidth="35.0" />
-                  <Button fx:id="btnAC" layoutX="13.0" layoutY="174.0" mnemonicParsing="false" onAction="#conversionAC" text="Konwersja A/C" />
+                  <Button fx:id="btnAC" layoutX="13.0" layoutY="144.0" mnemonicParsing="false" onAction="#conversionAC" text="Konwersja A/C" />
                   <Button fx:id="btnCA" layoutX="13.0" layoutY="274.0" mnemonicParsing="false" onAction="#conversionCA" text="Konwersja C/A" />
-                  <ChoiceBox fx:id="idQuantChoice" layoutX="123.0" layoutY="143.0" prefHeight="25.0" prefWidth="94.0" />
-                  <Label layoutX="14.0" layoutY="147.0" text="Kwantyzacja:" />
                   <Label layoutX="14.0" layoutY="242.0" text="Rekonstrukcja:" />
                   <ChoiceBox fx:id="idRecoChoice" layoutX="123.0" layoutY="238.0" prefHeight="25.0" prefWidth="94.0" />
                   <Label layoutX="14.0" layoutY="311.0" text="Błąd średniokwadratowy:" />
