@@ -54,6 +54,18 @@ public class Controller implements Initializable {
     public Pane idPane;
     public ChoiceBox idChoice;
     public static String m;
+    
+    //konstrukcja i rekonstrukcja sygnału
+    public TextField idQuantStep;
+    public TextField idQuantSample;
+    public TextField idQuantCount;
+    public Button btnAC;
+    public Button btnCA;
+    public ChoiceBox idQuantChoice;
+    public ChoiceBox idRecoChoice;
+    public TextField idMSE;
+    public TextField idSNR;
+    public TextField idMD;
 
     SignalGenerator generator = new SignalGenerator(selected);
 
@@ -293,4 +305,9 @@ public class Controller implements Initializable {
         calculateParams(signalThree.Y);
     }
 
+    public void conversionAC(ActionEvent actionEvent) {
+    }
+
+    public void conversionCA(ActionEvent actionEvent) {
+    }
 }
