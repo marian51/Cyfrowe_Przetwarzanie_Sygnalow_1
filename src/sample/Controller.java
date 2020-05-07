@@ -54,14 +54,13 @@ public class Controller implements Initializable {
     public Pane idPane;
     public ChoiceBox idChoice;
     public static String m;
-    
+
     //konstrukcja i rekonstrukcja sygnału
     public TextField idQuantStep;
     public TextField idQuantSample;
     public TextField idQuantCount;
     public Button btnAC;
     public Button btnCA;
-    public ChoiceBox idQuantChoice;
     public ChoiceBox idRecoChoice;
     public TextField idMSE;
     public TextField idSNR;
@@ -93,8 +92,15 @@ public class Controller implements Initializable {
                 "Dzielenie"
         );
 
+        ObservableList<String> choiceReconstruction = FXCollections.observableArrayList(
+                "Ekstrapolacja zerowego rzędu",
+                "Interpolacja pierwszego rzędu",
+                "Rekonstrukcja w oparciu o funkcję sinc"
+        );
+
         idCombo.setItems(list);
         idChoice.setItems(choiceList);
+        idRecoChoice.setItems(choiceReconstruction);
 
     }
 
@@ -121,6 +127,7 @@ public class Controller implements Initializable {
 
     public void GenerateSignal () throws IOException {
         signal = new Signal(generator.TimeStart, generator.Frequency);
+        signal.Time = generator.Time;
         signal.X = new ArrayList<>();
         signal.Y = new ArrayList<>();
         for (Double i = generator.TimeStart; i <= generator.TimeStart + generator.Time; i += 1/generator.Frequency) {
@@ -160,6 +167,8 @@ public class Controller implements Initializable {
         idVariance.textProperty().setValue(Double.toString(Math.round(Operations.VarianceSignal(Ys)*100.0)/100.0));
         idPower.textProperty().setValue(Double.toString(Math.round(Operations.AveragePowerSignal(Ys)*100.0)/100.0));
     }
+
+    // TODO obliczanie parametrów kwantyzacji/rekonstrukcji
 
     public void saveSignalToFile(String filePath, Signal signal) throws IOException {
         filePath="results\\"+filePath;
@@ -306,6 +315,15 @@ public class Controller implements Initializable {
     }
 
     public void conversionAC(ActionEvent actionEvent) {
+        signal.QuantSamplingFreq = Double.parseDouble(idQuantSample.textProperty().get());
+        signal.SamplesX = new ArrayList<>();
+        signal.SamplesY = new ArrayList<>();
+
+        for (Double i = generator.TimeStart; i <= generator.TimeStart + generator.Time; i += 1/signal.QuantSamplingFreq) {
+            signal.SamplesX.add(i);
+            signal.SamplesY.add(generator.generate(i));
+            System.out.println(i+"\t"+generator.generate(i));
+        }
     }
 
     public void conversionCA(ActionEvent actionEvent) {
