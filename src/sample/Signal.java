@@ -8,11 +8,21 @@ public class Signal {
     public double TimeStart;
     public double Time;
     public double Frequency;
-    public double SamplingFreq;
     public byte type=0;
     public List<Double> X;
     public List<Double> Y;
     public List<Triplet<Double, Double, Integer>> histogram;
+
+    //zmienne potrzebne do kwantyzacji i rekonstrukcji sygnału
+    public int QuantStep;
+    public double QuantSamplingFreq;
+    public int QuantSamples;
+    public List<Double> SamplesX;
+    public List<Double> SamplesY;
+    public List<Double> QuantizationX;
+    public List<Double> QuantizationY;
+    public List<Double> ReconstructionX;
+    public List<Double> ReconstructionY;
 
     public Signal(double timeStart, double frequency) {
         TimeStart = timeStart;
