@@ -3,11 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:id="idPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<Pane fx:id="idPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="419.0" prefWidth="898.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <children>
-      <SplitPane dividerPositions="0.15123456790123457" prefHeight="400.0" prefWidth="650.0">
+      <SplitPane dividerPositions="0.11160714285714286, 0.7287946428571429" prefHeight="419.0" prefWidth="898.0">
         <items>
-          <AnchorPane fx:id="idLeftPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane fx:id="idLeftPane" minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="92.0">
                <children>
                   <Button fx:id="idButtonSave" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnSave" prefHeight="49.0" prefWidth="68.0" text="Zapisz sygnał" textAlignment="CENTER" wrapText="true" />
                   <Button fx:id="idButtonLoad1" layoutX="14.0" layoutY="116.0" mnemonicParsing="false" onAction="#btnLoad" prefHeight="49.0" prefWidth="68.0" text="Wczytaj 1. sygnał" textAlignment="CENTER" wrapText="true" />
@@ -16,7 +16,7 @@
                   <ChoiceBox fx:id="idChoice" layoutX="14.0" layoutY="266.0" prefHeight="25.0" prefWidth="68.0" />
                   <Button layoutX="13.0" layoutY="299.0" mnemonicParsing="false" onAction="#compute" prefHeight="25.0" prefWidth="68.0" text="Wykonaj" />
                </children></AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="380.0">
                <children>
                   <Label layoutX="14.0" layoutY="14.0" text="Wpisz parametry:" />
                   <Label layoutX="14.0" layoutY="49.0" text="Amplituda:" />
@@ -54,6 +54,28 @@
                   <TextField fx:id="idVariance" layoutX="472.0" layoutY="142.0" prefHeight="25.0" prefWidth="61.0" />
                   <TextField fx:id="idPower" layoutX="472.0" layoutY="174.0" prefHeight="25.0" prefWidth="61.0" />
                   <Label layoutX="13.0" layoutY="312.0" text="Wybierz sygnał:" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="398.0" prefWidth="128.0">
+               <children>
+                  <Label layoutX="14.0" layoutY="49.0" text="Próg kwantyzacji:" />
+                  <Label layoutX="14.0" layoutY="82.0" text="Częstotliwość próbkowania:" />
+                  <Label layoutX="14.0" layoutY="115.0" text="Liczba próbek: " />
+                  <TextField fx:id="idQuantStep" layoutX="182.0" layoutY="45.0" prefHeight="20.0" prefWidth="35.0" />
+                  <TextField fx:id="idQuantSample" layoutX="182.0" layoutY="78.0" prefHeight="20.0" prefWidth="35.0" />
+                  <TextField fx:id="idQuantCount" layoutX="182.0" layoutY="111.0" prefHeight="20.0" prefWidth="35.0" />
+                  <Button fx:id="btnAC" layoutX="13.0" layoutY="174.0" mnemonicParsing="false" onAction="#conversionAC" text="Konwersja A/C" />
+                  <Button fx:id="btnCA" layoutX="13.0" layoutY="274.0" mnemonicParsing="false" onAction="#conversionCA" text="Konwersja C/A" />
+                  <ChoiceBox fx:id="idQuantChoice" layoutX="123.0" layoutY="143.0" prefHeight="25.0" prefWidth="94.0" />
+                  <Label layoutX="14.0" layoutY="147.0" text="Kwantyzacja:" />
+                  <Label layoutX="14.0" layoutY="242.0" text="Rekonstrukcja:" />
+                  <ChoiceBox fx:id="idRecoChoice" layoutX="123.0" layoutY="238.0" prefHeight="25.0" prefWidth="94.0" />
+                  <Label layoutX="14.0" layoutY="311.0" text="Błąd średniokwadratowy:" />
+                  <Label layoutX="16.0" layoutY="345.0" text="Stosunek sygnał-szum:" />
+                  <TextField fx:id="idMSE" layoutX="182.0" layoutY="307.0" prefHeight="20.0" prefWidth="35.0" />
+                  <TextField fx:id="idSNR" layoutX="182.0" layoutY="341.0" prefHeight="20.0" prefWidth="35.0" />
+                  <TextField fx:id="idMD" layoutX="182.0" layoutY="378.0" prefHeight="25.0" prefWidth="35.0" />
+                  <Label layoutX="16.0" layoutY="382.0" text="Maksymalna różnica:" />
                </children>
             </AnchorPane>
         </items>
