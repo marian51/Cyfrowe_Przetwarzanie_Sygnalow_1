@@ -172,7 +172,7 @@ public class Controller implements Initializable {
 
     public void calculateErrors(List<Double> Ys, List<Double> Yr) {
         idMSE.textProperty().setValue(Double.toString(Math.round(Operations.MeanSquaredError(Ys,Yr)*100.0)/100.0));
-
+        idSNR.textProperty().setValue(Double.toString(Math.round(Operations.SignalToNoiseRatio(Ys,Yr)*100.0)/100.0));
     }
 
     // TODO obliczanie parametrów kwantyzacji/rekonstrukcji
@@ -406,6 +406,8 @@ public class Controller implements Initializable {
                 //Interpolacja pierwszego rzędu
                 DataChart dataChart = new DataChart();
                 dataChart.loadTwice(signal, 5);
+
+                calculateErrors(signal.QuantizationY,signal.ZeroHoldY);
             }
             break;
 
@@ -415,6 +417,20 @@ public class Controller implements Initializable {
                 signal.calculateSincRecon();
                 DataChart dataChart = new DataChart();
                 dataChart.loadTwice(signal, 6);
+                /*List<Double> tempSincY = new ArrayList<>();
+                for (int i=0; i<signal.SincX.size(); i++) {
+                    for (int j=0; j<signal.QuantizationX.size(); j++) {
+                        if(signal.SincX.get(i)==signal.QuantizationX.get(j)) {
+                            tempSincY.add(signal.SincX.get(i));
+                        }
+                    }
+                }
+
+                for (int i=0; i<tempSincY.size(); i++) {
+                    System.out.println(i+". "+tempSincY.get(i));
+                }*/
+
+                calculateErrors(signal.Y,signal.SincY);
             }
             break;
 
