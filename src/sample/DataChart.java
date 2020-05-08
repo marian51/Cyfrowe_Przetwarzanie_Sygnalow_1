@@ -60,15 +60,11 @@ public class DataChart {
 
     }
 
-    public void loadTwice (Signal signal) {
+    public void loadTwice (Signal signal, int select) {
 
-
-        //xAxis = new NumberAxis();
         xAxis.setLabel("Próbkowanie");
-
-        //yAxis = new NumberAxis();
         yAxis.setLabel("Amplituda");
-        //LineChart<Number,Number> lineChart2 = new LineChart<>(xAxis,yAxis);
+
         //seria sygnału
         XYChart.Series seriesLine = new XYChart.Series();
         seriesLine.setName("Sygnał");
@@ -82,26 +78,52 @@ public class DataChart {
             seriesDot.getData().add(new XYChart.Data(signal.SamplesX.get(i), signal.SamplesY.get(i)));
         }
 
+        XYChart.Series seriesQuant = new XYChart.Series();
+        seriesQuant.setName("Kwantyzacja");
+        for (int i=0; i<signal.QuantizationX.size(); i++) {
+            seriesQuant.getData().add(new XYChart.Data(signal.QuantizationX.get(i), signal.QuantizationY.get(i)));
+        }
+
+        XYChart.Series seriesQuantOther = new XYChart.Series();
+        seriesQuantOther.setName("Kwantyzacja");
+        for (int i=0; i<signal.QuantXplot.size(); i++) {
+            seriesQuantOther.getData().add(new XYChart.Data(signal.QuantXplot.get(i), signal.QuantYplot.get(i)));
+        }
 
         lineChart = new LineChart<Number, Number>(xAxis,yAxis);
         //lineChart.setCreateSymbols(false);
         lineChart.setTitle("Wykres próbkowania");
 
         lineChart.getData().add(seriesLine);
-        lineChart.getData().add(seriesDot);
+
+        switch (select) {
+            case 1:
+                lineChart.getData().add(seriesDot);
+                break;
+
+            case 2:
+                lineChart.getData().add(seriesQuant);
+                break;
+
+            case 3:
+                lineChart.setId("chart3");
+                lineChart.setCreateSymbols(false);
+                lineChart.getData().add(seriesQuantOther);
+
+                break;
+
+            default:
+                break;
+        }
 
         chart = lineChart;
-
-
 
         Scene scene = new Scene(chart);
         scene.getStylesheets().add("chart.css");
 
         Stage stage = new Stage();
-
         stage.setScene(scene);
         stage.show();
-
         stage.setTitle("Wykres");
 
     }
