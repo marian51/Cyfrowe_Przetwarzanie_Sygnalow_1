@@ -23,14 +23,15 @@ public class Signal {
     public List<Double> QuantizationY;
     public List<Double> QuantXplot;
     public List<Double> QuantYplot;
-    public List<Double> ReconstructionX;
-    public List<Double> ReconstructionY;
+    public List<Double> ZeroHoldX;
+    public List<Double> ZeroHoldY;
 
     public Signal(double timeStart, double frequency) {
         TimeStart = timeStart;
         Frequency = frequency;
         List<Double> X = new ArrayList<Double>();
         List<Double> Y = new ArrayList<Double>();
+
     }
 
     public Signal(Signal signalOne) {
