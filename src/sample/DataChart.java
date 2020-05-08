@@ -100,6 +100,13 @@ public class DataChart {
             seriesZeroHold.getData().add(new XYChart.Data(signal.ZeroHoldX.get(i), signal.ZeroHoldY.get(i)));
         }
 
+        //seria dla sinc
+        XYChart.Series sincseries = new XYChart.Series();
+        sincseries.setName("Ekstrapolacja zerowego rzędu");
+        for (int i=0; i<signal.SincX.size(); i++) {
+            sincseries.getData().add(new XYChart.Data(signal.SincX.get(i), signal.SincY.get(i)));
+        }
+
         lineChart = new LineChart<Number, Number>(xAxis,yAxis);
         //lineChart.setCreateSymbols(false);
         lineChart.setTitle("Wykres próbkowania");
@@ -140,6 +147,10 @@ public class DataChart {
                 }
                 lineChart.getData().add(seriesDot);
                 lineChart.getData().add(second);
+                break;
+
+            case 6:
+                lineChart.getData().add(sincseries);
                 break;
 
             default:
