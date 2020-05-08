@@ -150,6 +150,7 @@ public class DataChart {
                 break;
 
             case 6:
+                lineChart.setCreateSymbols(false);
                 lineChart.getData().add(sincseries);
                 break;
 
