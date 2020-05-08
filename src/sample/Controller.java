@@ -329,6 +329,9 @@ public class Controller implements Initializable {
         signal.QuantXplot = new ArrayList<>();
         signal.QuantYplot = new ArrayList<>();
 
+        signal.SincY = new ArrayList<>();
+        signal.SincX = new ArrayList<>();
+
         //tworzenie współrzędnych wykresu próbkowania
         for (Double i = generator.TimeStart; i <= generator.TimeStart + generator.Time; i += 1/signal.QuantSamplingFreq) {
             signal.SamplesX.add(i);
@@ -397,6 +400,19 @@ public class Controller implements Initializable {
                 DataChart dataChart = new DataChart();
                 dataChart.loadTwice(signal, 5);
             }
+            break;
+
+            case 2:
+            {
+                //rekonstrukcja w oparciu o sinc
+                signal.calculateSincRecon();
+                DataChart dataChart = new DataChart();
+                dataChart.loadTwice(signal, 6);
+            }
+            break;
+
+            default:
+                break;
         }
 
 
