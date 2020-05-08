@@ -1,6 +1,7 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Operations {
@@ -150,6 +151,19 @@ public class Operations {
 
         result = 10 * Math.log10(sum1/sum2);
 
+        return result;
+    }
+
+    public static double MaximumDifference(List<Double> Ysampled, List<Double> Yrecon) {
+        int N = Ysampled.size();
+        List<Double> temp = new ArrayList<>();
+        double result;
+
+        for (int i=0; i<N; i++) {
+            temp.add(Math.abs(Ysampled.get(i)-Yrecon.get(i)));
+        }
+
+        result = Collections.max(temp);
         return result;
     }
 }
