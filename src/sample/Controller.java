@@ -323,6 +323,9 @@ public class Controller implements Initializable {
         signal.QuantizationX = new ArrayList<>();
         signal.QuantizationY = new ArrayList<>();
 
+        signal.ZeroHoldX = new ArrayList<>();
+        signal.ZeroHoldY = new ArrayList<>();
+
         signal.QuantXplot = new ArrayList<>();
         signal.QuantYplot = new ArrayList<>();
 
@@ -346,7 +349,7 @@ public class Controller implements Initializable {
         for (int i=0; i<signal.SamplesY.size(); i++) {
             double value = signal.SamplesY.get(i);
             signal.QuantizationY.add(minY+(Math.round((value-minY)/step)*step));
-            signal.QuantizationX.add(signal.SamplesX.get(i)-(range/2));
+            signal.QuantizationX.add(signal.SamplesX.get(i)-(range/2));             //przesunięcie
             //System.out.println("X = " + signal.QuantizationX.get(i) + ", Y = " + signal.QuantizationY.get(i)+"\n");
         }
 
@@ -365,5 +368,37 @@ public class Controller implements Initializable {
     }
 
     public void conversionCA(ActionEvent actionEvent) {
+
+        int selectedOption = idRecoChoice.getSelectionModel().selectedIndexProperty().get();
+        System.out.println("Wybrana opcja rekonstrukcji: " + selectedOption);
+
+        switch (selectedOption) {
+            case 0:
+            {
+                //Ekstrapolacja zerowego rzędu (ZeroHold)
+                double range = signal.SamplesX.get(1)-signal.SamplesX.get(0);
+                double g = range/100;
+
+                for (int i=0; i<signal.SamplesX.size(); i++) {
+                    for (double j=signal.SamplesX.get(i); j<signal.SamplesX.get(i)+range; j=j+g) {
+                        signal.ZeroHoldX.add(j);
+                        signal.ZeroHoldY.add(signal.SamplesY.get(i));
+                    }
+                }
+
+                DataChart dataChart = new DataChart();
+                dataChart.loadTwice(signal, 4);
+            }
+            break;
+
+            case 1:
+            {
+                //Interpolacja pierwszego rzędu
+                DataChart dataChart = new DataChart();
+                dataChart.loadTwice(signal, 5);
+            }
+        }
+
+
     }
 }
