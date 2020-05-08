@@ -21,6 +21,8 @@ public class Signal {
     public List<Double> SamplesY;
     public List<Double> QuantizationX;
     public List<Double> QuantizationY;
+    public List<Double> QuantXplot;
+    public List<Double> QuantYplot;
     public List<Double> ReconstructionX;
     public List<Double> ReconstructionY;
 
@@ -77,6 +79,8 @@ public class Signal {
         intervalMax = (double) Math.round( (min+(interval*value))*100 )/100;
         Triplet triplet = new Triplet(intervalMin,intervalMax,number);
         histogram.add(triplet);
+
+        
 
     }
 }
