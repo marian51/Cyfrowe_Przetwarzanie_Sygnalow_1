@@ -173,6 +173,7 @@ public class Controller implements Initializable {
     public void calculateErrors(List<Double> Ys, List<Double> Yr) {
         idMSE.textProperty().setValue(Double.toString(Math.round(Operations.MeanSquaredError(Ys,Yr)*100.0)/100.0));
         idSNR.textProperty().setValue(Double.toString(Math.round(Operations.SignalToNoiseRatio(Ys,Yr)*100.0)/100.0));
+        idMD.textProperty().setValue(Double.toString(Math.round(Operations.MaximumDifference(Ys,Yr)*100.0)/100.0));
     }
 
     // TODO obliczanie parametrów kwantyzacji/rekonstrukcji
@@ -379,10 +380,11 @@ public class Controller implements Initializable {
 
         int selectedOption = idRecoChoice.getSelectionModel().selectedIndexProperty().get();
         System.out.println("Wybrana opcja rekonstrukcji: " + selectedOption);
-
+        List<Double> tempY = new ArrayList<>();
         switch (selectedOption) {
             case 0:
             {
+
                 //Ekstrapolacja zerowego rzędu (ZeroHold)
                 double range = signal.SamplesX.get(1)-signal.SamplesX.get(0);
                 double g = range/100;
@@ -390,6 +392,7 @@ public class Controller implements Initializable {
                 for (int i=0; i<signal.SamplesX.size(); i++) {
                     for (double j=signal.SamplesX.get(i); j<signal.SamplesX.get(i)+range; j=j+g) {
                         signal.ZeroHoldX.add(j);
+                        tempY.add(signal.QuantizationY.get(i));
                         signal.ZeroHoldY.add(signal.SamplesY.get(i));
                     }
                 }
@@ -397,7 +400,11 @@ public class Controller implements Initializable {
                 DataChart dataChart = new DataChart();
                 dataChart.loadTwice(signal, 4);
 
-                calculateErrors(signal.QuantizationY,signal.ZeroHoldY);
+                for (int i=0; i<tempY.size();i++) {
+                    System.out.println(tempY.get(i));
+                }
+
+                calculateErrors(tempY,signal.ZeroHoldY);
             }
             break;
 
@@ -407,7 +414,7 @@ public class Controller implements Initializable {
                 DataChart dataChart = new DataChart();
                 dataChart.loadTwice(signal, 5);
 
-                calculateErrors(signal.QuantizationY,signal.ZeroHoldY);
+                calculateErrors(signal.QuantizationY,signal.SamplesY);
             }
             break;
 
@@ -417,18 +424,6 @@ public class Controller implements Initializable {
                 signal.calculateSincRecon();
                 DataChart dataChart = new DataChart();
                 dataChart.loadTwice(signal, 6);
-                /*List<Double> tempSincY = new ArrayList<>();
-                for (int i=0; i<signal.SincX.size(); i++) {
-                    for (int j=0; j<signal.QuantizationX.size(); j++) {
-                        if(signal.SincX.get(i)==signal.QuantizationX.get(j)) {
-                            tempSincY.add(signal.SincX.get(i));
-                        }
-                    }
-                }
-
-                for (int i=0; i<tempSincY.size(); i++) {
-                    System.out.println(i+". "+tempSincY.get(i));
-                }*/
 
                 calculateErrors(signal.Y,signal.SincY);
             }
@@ -437,9 +432,6 @@ public class Controller implements Initializable {
             default:
                 break;
         }
-
-        //calculateErrors();
-
 
     }
 }
