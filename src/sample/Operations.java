@@ -122,4 +122,18 @@ public class Operations {
         }
 
     }
+
+    //miary z drugiego zadania
+    public static double MeanSquaredError(List<Double> Ysampled, List<Double> Yrecon) {
+        double sum = 0;
+        double result;
+        int N = Ysampled.size();
+
+        for (int i=0; i<N; i++) {
+            sum += Math.pow((Ysampled.get(i)-Yrecon.get(i)),2.0);
+        }
+
+        result = sum/N;
+        return result;
+    }
 }
