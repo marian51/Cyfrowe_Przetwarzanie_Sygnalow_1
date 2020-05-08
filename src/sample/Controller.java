@@ -170,6 +170,11 @@ public class Controller implements Initializable {
         idPower.textProperty().setValue(Double.toString(Math.round(Operations.AveragePowerSignal(Ys)*100.0)/100.0));
     }
 
+    public void calculateErrors(List<Double> Ys, List<Double> Yr) {
+        idMSE.textProperty().setValue(Double.toString(Math.round(Operations.MeanSquaredError(Ys,Yr)*100.0)/100.0));
+
+    }
+
     // TODO obliczanie parametrów kwantyzacji/rekonstrukcji
 
     public void saveSignalToFile(String filePath, Signal signal) throws IOException {
@@ -391,6 +396,8 @@ public class Controller implements Initializable {
 
                 DataChart dataChart = new DataChart();
                 dataChart.loadTwice(signal, 4);
+
+                calculateErrors(signal.QuantizationY,signal.ZeroHoldY);
             }
             break;
 
@@ -414,6 +421,8 @@ public class Controller implements Initializable {
             default:
                 break;
         }
+
+        //calculateErrors();
 
 
     }
