@@ -16,3 +16,68 @@
 .default-color0.chart-legend-item-symbol {
 	-fx-background-color: red;
 }
+
+/* (zerowy) wykres sygna³u, czerwony */
+#chart3 .default-color0.chart-line-symbol {
+	-fx-background-color: transparent, transparent;
+}
+#chart3 .default-color0.chart-legend-item-symbol {
+	-fx-background-color: red;
+}
+#chart3 .default-color0.chart-series-line { -fx-stroke: red; }
+
+
+
+/* (pierwszy) wykres sygna³u, zielony */
+#chart3 .default-color1.chart-line-symbol {
+	-fx-background-color: transparent, transparent;
+}
+#chart3 .default-color1.chart-legend-item-symbol {
+	-fx-background-color: green;
+}
+#chart3 .default-color1.chart-series-line { -fx-stroke: green; }
+
+
+
+/* (drugi) wykres próbek, pomarañczowy */
+#chart3 .default-color2.chart-line-symbol {
+	-fx-background-color: white, orange;
+}
+#chart3 .default-color2.chart-legend-item-symbol {
+	-fx-background-color: orange;
+}
+#chart3 .default-color2.chart-series-line { -fx-stroke: transparent; }
+
+
+
+
+/* (zerowy) wykres sygna³u, czerwony */
+#chart4 .default-color0.chart-line-symbol {
+	-fx-background-color: transparent, transparent;
+}
+#chart4 .default-color0.chart-legend-item-symbol {
+	-fx-background-color: red;
+}
+#chart4 .default-color0.chart-series-line { -fx-stroke: red; }
+
+
+
+/* (pierwszy) wykres sygna³u, zielony */
+#chart4 .default-color1.chart-line-symbol {
+	-fx-background-color: transparent, transparent;
+}
+#chart4 .default-color1.chart-legend-item-symbol {
+	-fx-background-color: green;
+}
+#chart4 .default-color1.chart-series-line { -fx-stroke: green; }
+
+
+
+/* (drugi) wykres próbek, pomarañczowy */
+#chart4 .default-color2.chart-line-symbol {
+	-fx-background-color: white, orange;
+}
+#chart4 .default-color2.chart-legend-item-symbol {
+	-fx-background-color: orange;
+}
+#chart4 .default-color2.chart-series-line { -fx-stroke: transparent; }
