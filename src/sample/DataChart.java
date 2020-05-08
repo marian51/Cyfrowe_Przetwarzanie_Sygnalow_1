@@ -72,22 +72,32 @@ public class DataChart {
             seriesLine.getData().add(new XYChart.Data(signal.X.get(i), signal.Y.get(i)));
         }
 
+        //seria próbek
         XYChart.Series seriesDot = new XYChart.Series();
         seriesDot.setName("Próbki");
         for (int i=0; i<signal.SamplesX.size(); i++) {
             seriesDot.getData().add(new XYChart.Data(signal.SamplesX.get(i), signal.SamplesY.get(i)));
         }
 
+        //seria skwantyzowanych próbek
         XYChart.Series seriesQuant = new XYChart.Series();
         seriesQuant.setName("Kwantyzacja");
         for (int i=0; i<signal.QuantizationX.size(); i++) {
             seriesQuant.getData().add(new XYChart.Data(signal.QuantizationX.get(i), signal.QuantizationY.get(i)));
         }
 
+        //seria wartości wykresu skwantyzowanego
         XYChart.Series seriesQuantOther = new XYChart.Series();
         seriesQuantOther.setName("Kwantyzacja");
         for (int i=0; i<signal.QuantXplot.size(); i++) {
             seriesQuantOther.getData().add(new XYChart.Data(signal.QuantXplot.get(i), signal.QuantYplot.get(i)));
+        }
+
+        //seria dla ekstrapolacji zero-order-hold
+        XYChart.Series seriesZeroHold = new XYChart.Series();
+        seriesZeroHold.setName("Ekstrapolacja zerowego rzędu");
+        for (int i=0; i<signal.ZeroHoldX.size(); i++) {
+            seriesZeroHold.getData().add(new XYChart.Data(signal.ZeroHoldX.get(i), signal.ZeroHoldY.get(i)));
         }
 
         lineChart = new LineChart<Number, Number>(xAxis,yAxis);
@@ -109,7 +119,27 @@ public class DataChart {
                 lineChart.setId("chart3");
                 lineChart.setCreateSymbols(false);
                 lineChart.getData().add(seriesQuantOther);
+                break;
 
+            case 4:
+                lineChart.setId("chart3");
+                lineChart.setTitle("Wykres rekonsturkcji zerowego rzędu");
+                //lineChart.setCreateSymbols(false);
+                lineChart.getData().add(seriesZeroHold);
+                lineChart.getData().add(seriesDot);
+                break;
+
+            case 5:
+                lineChart.setId("chart3");
+                lineChart.setTitle("Wykres rekonsturkcji pierwszego rzędu");
+                XYChart.Series second = new XYChart.Series();
+                second.setName("Próbki");
+                seriesDot.setName("Interpolacja");
+                for (int i=0; i<signal.SamplesX.size(); i++) {
+                    second.getData().add(new XYChart.Data(signal.SamplesX.get(i), signal.SamplesY.get(i)));
+                }
+                lineChart.getData().add(seriesDot);
+                lineChart.getData().add(second);
                 break;
 
             default:
