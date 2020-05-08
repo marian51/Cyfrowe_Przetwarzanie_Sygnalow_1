@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
@@ -21,6 +22,7 @@ import java.io.*;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -318,12 +320,119 @@ public class Controller implements Initializable {
         signal.QuantSamplingFreq = Double.parseDouble(idQuantSample.textProperty().get());
         signal.SamplesX = new ArrayList<>();
         signal.SamplesY = new ArrayList<>();
+        signal.QuantizationX = new ArrayList<>();
+        signal.QuantizationY = new ArrayList<>();
 
+        //tworzenie współrzędnych wykresu próbkowania
         for (Double i = generator.TimeStart; i <= generator.TimeStart + generator.Time; i += 1/signal.QuantSamplingFreq) {
             signal.SamplesX.add(i);
             signal.SamplesY.add(generator.generate(i));
-            System.out.println(i+"\t"+generator.generate(i));
+            System.out.println(i+"\t\t"+generator.generate(i));
         }
+
+        //wykres z sygnałem pierwotnym i próbkami
+        /*XYChart.Series seriesDot = new XYChart.Series();
+        seriesDot.setName("Próbki");
+        for (int i=0; i<signal.SamplesX.size();i++) {   //utworzenie serii punktów
+            seriesDot.getData().add(new XYChart.Data(signal.SamplesX.get(i),signal.SamplesY.get(i)));
+        }*/
+
+
+
+        DataChart dataChart = new DataChart();
+        //dataChart.lineChart.setTitle("Wykres próbkowania");
+        //dataChart.lineChart.getData().add(seriesDot);
+        dataChart.loadTwice(signal);
+
+        /*Signal tempSignal = new Signal(signal);
+        tempSignal.X = signal.SamplesX;
+        tempSignal.Y = signal.SamplesY;
+        DataChart dataChartEalier = new DataChart();
+        dataChartEalier.scatterChart.setTitle("Wykres próbkowania");*/
+        //dataChartEalier.loadData(tempSignal, 10);
+
+        double maxY = Collections.max(signal.SamplesY);
+        double minY = Collections.min(signal.SamplesY);
+        double range = signal.SamplesX.get(1)-signal.SamplesX.get(0);
+
+        double step = (maxY-minY)/(Math.pow(2.0, (signal.QuantSamplingFreq-1)));
+        System.out.println("MIN = "+minY+"\t\tMAX = "+maxY+"\t\tSTEP = "+step);
+
+        for (int i=0; i<signal.SamplesY.size(); i++) {
+            double value = signal.SamplesY.get(i);
+            signal.QuantizationY.add(minY+(Math.round((value-minY)/step)*step));
+            System.out.println("value:                   "+value);
+            System.out.println("minY:                    "+minY);
+            System.out.println("step:                    "+step);
+            System.out.println("value-minY:              "+(value-minY));
+            System.out.println("(value-minY)/step):      "+(((value-minY)/step)));
+            System.out.println("z zaokrągleniem:         "+(Math.round((value-minY)/step)));
+            //System.out.println("(value-minY)/step)*step: "+(((value-minY)/step)*step));
+            System.out.println("z przemnozeniem:         "+(Math.round((value-minY)/step)*step));
+            signal.QuantizationX.add(signal.SamplesX.get(i)-(range/2));
+            System.out.println("X = " + signal.QuantizationX.get(i) + ", Y = " + signal.QuantizationY.get(i)+"\n");
+        }
+
+        /*
+        for (int i=0; i<signal.QuantizationX.size(); i++) {
+            dataChartEalier.series2.getData().add(new XYChart.Data(signal.QuantizationX.get(i), signal.QuantizationY.get(i)));
+        }
+        dataChartEalier.scatterChart.getData().add(dataChartEalier.series2);
+
+        dataChartEalier.loadData(tempSignal, 10);*/
+
+        /*double signalAmplitude = Collections.max(signal.Y); //powinno to być równe generator.Amplitud
+        double stepSize = signalAmplitude/(Math.pow(2.0, (signal.QuantSamplingFreq-1)));
+        //double[] steps = new double[(int)Math.pow(2.0,signal.QuantSamplingFreq)];
+        List<Double> steps = new ArrayList<>();
+        steps.add((-signalAmplitude+(stepSize/2)));
+
+        System.out.println("signalAmplitude = " + signalAmplitude);
+        System.out.println("steps[0]        = " + steps.get(0));
+
+        for (int i=1; i<Math.pow(2.0,signal.QuantSamplingFreq);i++) {
+            steps.add(steps.get(i - 1) +stepSize);
+        }
+
+        for (int i=0; i<signal.SamplesX.size(); i++) {
+            double valueY = signal.SamplesY.get(i);
+
+            for (int j=1; j<Math.pow(2.0, signal.QuantSamplingFreq); j++) {
+                if(valueY>steps.get(j-1) && valueY<=steps.get(j)) {
+                    if((valueY-steps.get(j-1)) < (steps.get(j)-valueY)) {
+                        valueY=steps.get(j-1);
+                    }
+                    else {
+                        valueY=steps.get(j);
+                    }
+                    break;
+                }
+                else if (valueY < steps.get(0)) {
+                    valueY = steps.get(0);
+                    break;
+                }
+                else if (valueY > steps.get((int)Math.pow(2.0,(signal.QuantSamplingFreq-1)))) {
+                    valueY = steps.get((int)Math.pow(2.0,(signal.QuantSamplingFreq-1)));
+                    break;
+                }
+            }
+            signal.QuantizationX.add(signal.SamplesX.get(i));
+            signal.QuantizationY.add(valueY);
+        }
+
+        System.out.println("\nWARTOŚCI KWANTYZOWANE");
+        for (int i=0; i<signal.QuantizationX.size(); i++) {
+            System.out.println(signal.QuantizationX.get(i)+"\t\t\t"+signal.QuantizationY.get(i));
+        }
+
+        // FIXME barbarzyńska podmiana pół
+        signal.X = signal.QuantizationX;
+        signal.Y = signal.QuantizationY;
+
+        DataChart dataChart = new DataChart();
+        dataChart.loadData(signal, 10);*/
+
+
     }
 
     public void conversionCA(ActionEvent actionEvent) {
