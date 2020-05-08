@@ -114,13 +114,13 @@ public class Signal {
             SincX.add(t);
         }
 
-        for (int i=0; i<SincX.size(); i++) {
+        /*for (int i=0; i<SincX.size(); i++) {
             System.out.println(SincX.get(i));
         }
         System.out.println("______");
         for (int i=0; i<SincY.size(); i++) {
             System.out.println(SincY.get(i));
-        }
+        }*/
 
         /*for (int i=0; i<points; i++) {
             double y = 0;
