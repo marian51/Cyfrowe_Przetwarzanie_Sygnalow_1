@@ -102,7 +102,7 @@ public class DataChart {
 
         //seria dla sinc
         XYChart.Series sincseries = new XYChart.Series();
-        sincseries.setName("Ekstrapolacja zerowego rzędu");
+        sincseries.setName("Rekonstrukcja w oparciu o sinc");
         for (int i=0; i<signal.SincX.size(); i++) {
             sincseries.getData().add(new XYChart.Data(signal.SincX.get(i), signal.SincY.get(i)));
         }
@@ -150,7 +150,9 @@ public class DataChart {
                 break;
 
             case 6:
+                lineChart.setId("chart3");
                 lineChart.setCreateSymbols(false);
+                lineChart.setTitle("Wykres rekonsturkcji w oparciu o funkcję sinc");
                 lineChart.getData().add(sincseries);
                 break;
 
