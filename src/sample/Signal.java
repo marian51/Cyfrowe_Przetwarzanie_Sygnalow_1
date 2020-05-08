@@ -25,6 +25,8 @@ public class Signal {
     public List<Double> QuantYplot;
     public List<Double> ZeroHoldX;
     public List<Double> ZeroHoldY;
+    public List<Double> SincX;
+    public List<Double> SincY;
 
     public Signal(double timeStart, double frequency) {
         TimeStart = timeStart;
@@ -83,5 +85,67 @@ public class Signal {
 
         
 
+    }
+
+    public double Sinc(double t) {
+        if(Math.abs(t) < 0 + 0.000001) {
+            return 1.0;
+        }
+        else {
+            return ((Math.sin(Math.PI*t))/(Math.PI*t));
+        }
+    }
+
+    public void calculateSincRecon() {
+        SincX = new ArrayList<>();
+        SincY = new ArrayList<>();
+        int points = (int)(Frequency*Time);
+        double interval = 1/Frequency;
+        double tempp = 0;
+
+        for (double t=TimeStart; t<Time; t+=1/Frequency) {
+            double value = 0;
+
+            for (int n=0; n<points; n++) {
+                value += Y.get(n) * Sinc(t/interval-n);
+            }
+
+            SincY.add(value);
+            SincX.add(t);
+        }
+
+        for (int i=0; i<SincX.size(); i++) {
+            System.out.println(SincX.get(i));
+        }
+        System.out.println("______");
+        for (int i=0; i<SincY.size(); i++) {
+            System.out.println(SincY.get(i));
+        }
+
+        /*for (int i=0; i<points; i++) {
+            double y = 0;
+            for (int n = 0; n<QuantizationX.size(); n++) {
+                if (QuantizationX.get(n) > (i * interval)) {
+                    break;
+                }
+                y = QuantizationY.get(n);
+            }
+
+            for (int j=0; j<QuantizationX.size(); j++) {
+                tempp = QuantizationY.get(j);
+                tempp += y * Sinc((QuantizationX.get(j)/interval-i));
+
+                //SincX.add(QuantizationX.get(j));
+            }
+            SincY.add(tempp);
+        }
+
+        for (int k=0; k<QuantizationX.size(); k++) {
+
+        }
+
+        for (int i=0; i<SincX.size(); i++) {
+            System.out.println("SincX = "+SincX.get(i)+", SincY = "+SincY.get(i));
+        }*/
     }
 }
