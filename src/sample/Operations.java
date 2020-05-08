@@ -136,4 +136,20 @@ public class Operations {
         result = sum/N;
         return result;
     }
+
+    public static double SignalToNoiseRatio(List<Double> Ysampled, List<Double> Yrecon) {
+        double sum1 = 0;
+        double sum2 = 0;
+        double result;
+        int N = Ysampled.size();
+
+        for (int i=0; i<N; i++) {
+            sum1 += Math.pow(Ysampled.get(i),2.0);
+            sum2 += Math.pow((Ysampled.get(i)-Yrecon.get(i)),2.0);
+        }
+
+        result = 10 * Math.log10(sum1/sum2);
+
+        return result;
+    }
 }
